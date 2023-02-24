@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation</title>
+    <link rel="stylesheet" href="Event_registration.css">
+</head>
+
+<body>
+    <div class="container">
+        <form method="post">
+            <h1 class="main_heading">Blood Donation Drive</h1>
+            <h2>Blood Donation Form</h2>
+            <p>First Name:<input type="text" name="fname" id="fname" required placeholder="John"></p>
+            <p>Last Name:<input type="text" name="lname" id="lname" required placeholder="Doe"></p>
+            <p>
+                Gender:
+                <select name="gender" id="card_type">
+                    <option value="">---Select Gender---</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Rather Not Say</option>
+                </select>
+            </p>
+            <p>
+                Date of Birth: <input type="date" name="dob" id="dob" required placeholder="dd/mm/yy">
+            </p>
+            <p>
+                Address: <input type="text" name="address" id="address" placeholder="Enter you address">
+            </p>
+            <p>
+                Email: <input type="email" name="email" id="email" required placeholder="johdoe@xyz.com">
+            </p>
+            <p>
+                Mobile: <input type="number" name="phone" id="phone" placeholder="+91 9876543210">
+            </p>
+            <p>
+                Blood Group:
+                <input type="text" name="blood_type" id="blood_type" required placeholder="Enter your Blood Group">
+            </p>
+            <p>
+                Have you ever donated blood before:
+                <input type="text" name="donation_history" id="donation_history">
+            </p>
+            <hr>
+            <h2>Health Check</h2>
+            <p>
+                Any Disease:
+                <input type="text" name="disease_history" id="disease_history">
+            </p>
+            <p>
+                Any Allergy:
+                <input type="text" name="allergy_history" id="allergy_history">
+            </p>
+            <p>
+                Any Current Medication:
+                <input type="text" name="medication_history" id="medication_history">
+            </p>
+            <p>
+                <input type="checkbox" name="checkbox" required>
+            </p>
+            I want to donate blood voluntarily and will not be entitled to claim any exchange for my donation. I guarantee that all the provided information is true. I understand the questions, which are for my protection as well as to protect the receipient of my blood.
+            <br>
+            <br>
+            <input type="submit" value="Submit" onclick="submitForm()">
+        </form>
+    </div>
+    <script>
+        function submitForm() {
+          var fname = $("input[name=fname]").val();
+          var lname = $("input[name=lname]").val();
+          var email = $("input[name=email]").val();
+          var phone = $("input[name=phone]").val();
+          var blood_type = $("input[name=blood_type]").val();
+          var donation_history = $("input[name=donation_history]").val();
+          var disease_history = $("input[name=disease_history]").val();
+          var allergy_history = $("input[name=allergy_history]").val();
+          var medication_history = $("input[name=medication_history]").val();
+          var formData =
+            "fname=" + fname + "&lname=" + lname + "&email=" + email + "&phone=" + phone + "&blood_type=" + blood_type + "&donation_history=" + donation_history + "&disease_history=" + disease_history + "&allergy_history=" + allergy_history + "&medication_history=" + medication_history;
+          $.ajax({
+            type: "POST",
+            url: "output.php",
+            data: formData,
+          }).done(function (response) {
+            //$("#outputs").html(response);
+            var new_window = window.open(null, "", "_blank");
+            new_window.document.write(response);
+          });
+        }
+      </script>
+</body>
+</html>
